@@ -1,0 +1,162 @@
+{% autoescape off %}
+Hi {{ user.firstname }},
+
+<table>
+    <caption>INVENTORY REPORT -  WEEK {{inventory_week.id}}</caption>
+    <thead>
+        <tr>
+            <th>BROILER</th>
+            <th>AGE (IN DAYS)</th>
+            <th>ANIMAL BEDDING DURATION (IN DAYS)</th>
+            <th>ANIMAL BEDDING STATUS (IN DAYS)</th>
+            <th>COLOR</th>
+            <th>GENDER</th>
+            <th>WEIGHT</th>
+            <th>AVERAGE FEED CONSUMED (WEEKLY)</th>
+            <th>AVERAGE TEMPERATURE (WEEKLY)</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        <tr>
+            <td>BR-{{broiler.id}}</td>
+            <td>{{broiler.get_age}} Days</td>
+            <td>{{broiler.bedding_duration}} Days</td>
+            <td>{% if broiler.bedding_due %}DUE{% else %}NOT DUE{% ENDIF %}</td>
+            <td>{{broiler.color}} </td>
+            <td>{{broiler.gender}} </td>
+            <td>{{broiler.weight}} KG</td>
+            <td>{{broiler.feed}} KG</td>
+            <td>{{broiler.temperature}} &deg C </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>SUMMARY</h2>
+
+THE FOLLOWING BROILERS ARE OVER WEIGHT:
+
+<ul>
+{% for broiler in inventory_week.broilers %}
+    {% if broiler.is_overweight %}
+        <li>BR-{{broiler.id}}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+
+THE FOLLOWING BROILERS ARE UNDER WEIGHT:
+
+<ul>
+{% for broiler in inventory_week.broilers %}
+    {% if broiler.is_underweight %}
+        <li>BR-{{broiler.id}}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+
+THE FOLLOWING BROILERS ARE CLOSE TO BEING OVER WEIGHT:
+
+<ul>
+{% for broiler in inventory_week.broilers %}
+    {% if broiler.is_close_to_being_over_weight %}
+        <li>BR-{{broiler.id}}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+
+THE FOLLOWING BROILERS ARE CLOSE TO BEING UNDER WEIGHT:
+
+<ul>
+{% for broiler in inventory_week.broilers %}
+    {% if broiler.is_close_to_being_under_weight %}
+        <li>BR-{{broiler.id}}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+
+THE FOLLOWING BROILERS ARE CONSUMING INADEQUATE FEED:
+
+<ul>
+{% for broiler in inventory_week.broilers %}
+    {% if broiler.consumes_indaequate_feed %}
+        <li>BR-{{broiler.id}}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+
+THE FOLLOWING BROILERS ARE BEING OVERFED:
+
+<ul>
+{% for broiler in inventory_week.broilers %}
+    {% if broiler.consumes_too_many_feed %}
+        <li>BR-{{broiler.id}}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+{% endautoescape %}
+
+THE FOLLOWING BROILERS ARE CLOSE TO BEING UNDERFED:
+
+<ul>
+{% for broiler in inventory_week.broilers %}
+    {% if broiler.is_close_to_being_underfed %}
+        <li>BR-{{broiler.id}}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+{% endautoescape %}
+
+THE FOLLOWING BROILERS ARE CLOSE TO BEING OVERFED:
+
+<ul>
+{% for broiler in inventory_week.broilers %}
+    {% if broiler.is_close_to_being_overfed %}
+        <li>BR-{{broiler.id}}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+{% endautoescape %}
+
+THE FOLLOWING BROILERS ARE COLD:
+
+<ul>
+{% for broiler in inventory_week.broilers %}
+    {% if broiler.is_cold %}
+        <li>BR-{{broiler.id}}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+{% endautoescape %}
+
+THE FOLLOWING BROILERS ARE RUNNING TEMPERATURE:
+
+<ul>
+{% for broiler in inventory_week.broilers %}
+    {% if broiler.is_running_temperature %}
+        <li>BR-{{broiler.id}}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+{% endautoescape %}
+
+THE FOLLOWING BROILERS ARE CLOSE TO THE MINIMUM TEMPERATURE:
+
+<ul>
+{% for broiler in inventory_week.broilers %}
+    {% if broiler.is_close_to_minimum_temperature %}
+        <li>BR-{{broiler.id}}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+{% endautoescape %}
+
+THE FOLLOWING BROILERS ARE CLOSE TO THE MAXIMMUM TEMPERATURE:
+
+<ul>
+{% for broiler in inventory_week.broilers %}
+    {% if broiler.is_close_to_maximum_temperature %}
+        <li>BR-{{broiler.id}}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+{% endautoescape %}
